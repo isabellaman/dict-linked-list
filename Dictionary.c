@@ -1,21 +1,12 @@
-/* Isabella Man
- * CSE 15
- * pa3
- * 11/16/19
- * Used LinkedList as the basis for the structure of the Dictionary ADT
- */
-
-//-------------------------------------------------------------
-// Dictionary.c
-// Dictionary implementation of the Linked List ADT.
-//-------------------------------------------------------------
+/*
+ * Dictionary implementation of the Linked List ADT.
+*/
 
 #include <stdlib.h>
 #include <stdio.h>
 #include <assert.h>
 #include <string.h>
 #include"Dictionary.h"
-
 
 // Private Types and Functions ---------------------------------
 
@@ -29,7 +20,6 @@ typedef struct NodeObj{
 
 // Node type
 typedef NodeObj* Node;
-
 
 // newNode()
 // constructor for the Node type
@@ -46,10 +36,7 @@ Node newNode(char* k, char* v) {
 typedef struct DictionaryObj{
    Node head;		// pointer to the first Node in list
    int numPairs;	// number of pairs in this Dictionary
-   //char key[];		// pointer to null terminated char array
-   //char value[];	// pointer to null terminated char array
 } DictionaryObj;
-
 
 // freeNode()
 // destructor for the Node type
@@ -109,7 +96,6 @@ void freeDictionary(Dictionary *pD){
    }
 }
 
-
 // ADT operations ---------------------------------------------------
 
 // size()
@@ -131,34 +117,14 @@ char* lookup(Dictionary D, char* k) {
          "Dictionary Error: calling lookup() on NULL Dictionary reference\n");
       exit(EXIT_FAILURE);
    }
-
-  /*if (D->head == NULL) {
-     return NULL;
-  }*/
-
    char* test;
-
    Node T;
    T = D->head;
-   //test = T->key;
-   
-   //code below duplicates first element?------------------------------------------------------------
-   /*if(D->numPairs == 1) {
-      char* test2;
-      Node J;
-      J = D->head;
-      test2 = J->key;
-      int check = strcmp(test2, k);
-      if (check == 0) {
-         return J->value;
-      }
-   }*/
      
       if(T->key == k) {
          return T->value;
       }
 
-    //if (D->numPairs > 1) {
       while ((T->key != k) && (T->next != NULL)) {
          T = T->next;
          test = T->key;
@@ -171,11 +137,6 @@ char* lookup(Dictionary D, char* k) {
             return T->value;
          }
       }
-      /*test = T->key;
-      int check2 = strcmp(test, k);
-      if(check2 == 0) {
-         return T->value;
-      }*/
 }
 
 // insert()
@@ -189,7 +150,6 @@ void insert(Dictionary D, char* k, char* v){
    }
 
    Node T;
-   //if(lookup(D, k) == NULL) {
       if(size(D) == 0) {
          T = D->head;
          T = newNode(k, v);
@@ -202,20 +162,6 @@ void insert(Dictionary D, char* k, char* v){
         T = T->next;
         D->numPairs++;
       }
-   //}
-
-   /*Node T;
-   if (lookup(D, k) == NULL) {
-      //create new node and fill in with args passed, k and v
-      T = newNode(k, v);
-      //set that node's pointer to the head node
-      T->next = D->head;
-      //set the head to be that new node
-      D->head = T;
-      //disconnect temporary pointer
-      D->numPairs++;
-   }*/
-
 }
 
 // delete()
@@ -283,18 +229,12 @@ char* DictionaryToString(Dictionary D){
          "Dictionary Error: calling DictionaryToString() on NULL Dictionary reference\n");
       exit(EXIT_FAILURE);
    }
-   //for( T=(D->head); T!=NULL; T=T->next) {
-      //printf("%s %s\n", T->key, T->value);
-   //}
 
     if(D->head == NULL) {
        n = 1;
        str = malloc(n+1 * sizeof(char));
-       //char* blank;
        strcat(str, "\n");
-       //return blank;
     }
-    //str = calloc(n, sizeof(char*));
 
     if(D->head != NULL) {
       n = countChars(D);
@@ -318,8 +258,6 @@ char* DictionaryToString(Dictionary D){
      strcat(str, valueC2);
      strcat(str, "\0");
      strcat(str, "\n");
-
-     //return str;
    } 
   return str;
 }
@@ -334,7 +272,6 @@ int countChars(Dictionary D) {
 
    if (D != NULL) {
       while(T->next != NULL) {
-         //T = T->next;
          count += strlen(T->key) + strlen(T->value) + 1;
          T = T->next;
       }
@@ -345,6 +282,5 @@ int countChars(Dictionary D) {
        count = 0;
        return count;
    }
-   //return count;
 }
 
